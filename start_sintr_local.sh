@@ -11,8 +11,8 @@
 # The Sintr Front End Server running on port 8990
 
 
-if [ "$#" -ne 0 ]; then
-    echo "Usage start_sintr_local.sh"
+if [ "$#" -ne 1 ]; then
+    echo "Usage start_sintr_local.sh projectPath"
     exit 1
 fi
 
@@ -21,4 +21,4 @@ pub serve --hostname 0.0.0.0 &
 cd ..
 
 # Front End Server
-./infrastructure/scripts/start_fe_server.sh - demo/ # &> ~/sintr-logs/fe_server.log
+./infrastructure/scripts/start_fe_server.sh - $1 # &> ~/sintr-logs/fe_server.log
