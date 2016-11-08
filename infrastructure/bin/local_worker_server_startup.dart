@@ -51,8 +51,8 @@ main(List<String> args) async {
     db.registerDbService(dbService);
 
     var requestServer =
-        await io.HttpServer.bind(io.InternetAddress.LOOPBACK_IP_V4, port);
-    log.info('listening on localhost, port ${requestServer.port}');
+        await io.HttpServer.bind(io.InternetAddress.ANY_IP_V4, port);
+    log.info('listening on 0.0.0.0, port ${requestServer.port}');
 
     await for (io.HttpRequest request in requestServer) {
       await _handleRequest(request);

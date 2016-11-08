@@ -139,7 +139,7 @@ Future<String> _sendMessage(String action, var requestStructure) async {
   await new Future.delayed(new Duration(milliseconds: 20));
 
   var request = await new HttpClient().post(
-      InternetAddress.LOOPBACK_IP_V4.host, serverPort, action);
+      InternetAddress.ANY_IP_V4.host, serverPort, action);
   await request.write(JSON.encode(requestStructure));
 
   // await new Future.delayed(new Duration(milliseconds: 20));

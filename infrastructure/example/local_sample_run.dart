@@ -37,7 +37,7 @@ main(List<String> args) async {
 
 _sendRequest(Map<String, String> sources, String input) async {
   var request = await new HttpClient().post(
-      InternetAddress.LOOPBACK_IP_V4.host, port, '/');
+      InternetAddress.ANY_IP_V4.host, port, '/');
       // request.headers.contentType = ContentType.JSON;
   await request.write(JSON.encode({
     "sources" : sources,

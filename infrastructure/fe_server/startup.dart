@@ -92,8 +92,8 @@ main(List<String> args) async {
 
 _serverStartup(int port) async {
   var requestServer =
-      await io.HttpServer.bind(io.InternetAddress.LOOPBACK_IP_V4, port);
-  log.info('listening on localhost, port ${requestServer.port}');
+      await io.HttpServer.bind(io.InternetAddress.ANY_IP_V4, port);
+  log.info('listening on 0.0.0.0, port ${requestServer.port}');
 
   // Actually handle HTTP requests
 
