@@ -16,10 +16,8 @@ if [ "$#" -ne 0 ]; then
     exit 1
 fi
 
-mkdir -p ~/sintr-logs
-
 cd ui
-pub serve --hostname 0.0.0.0 &> ~/sintr-logs/ui-pub-serve.log &
+pub serve --hostname 0.0.0.0 &
 cd ..
 
 # Front End Server
