@@ -16,9 +16,11 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+mkdir -p ~/sintr-logs
+
 cd ui
-pub serve --hostname 0.0.0.0 &
+pub serve --hostname 0.0.0.0 &> ~/sintr-logs/ui-pub-serve.log &
 cd ..
 
 # Front End Server
-./infrastructure/scripts/start_fe_server.sh - $1 # &> ~/sintr-logs/fe_server.log
+./infrastructure/scripts/start_fe_server.sh - $1 &> ~/sintr-logs/fe_server.log
