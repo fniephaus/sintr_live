@@ -11,24 +11,13 @@ import 'dart:convert';
 Future<String> sintrEntryPoint(String msg) async {
   Map<String, List> input = JSON.decode(msg);
   List<Map<String, int>> result = [];
-  input.forEach((String direction, List<Map<String, int>> data) {
-    Map<String, List<int>> counts = {};
-    data.forEach((Map<String, int> kv) {
-      kv.forEach((String key, int value) {
-        counts.putIfAbsent(key, () => []);
-        counts[key].add(value);
-      });
-    });
-    int sumSpeed = counts['speed'].reduce((a, b) => a + b);
-    double avgSpeed = sumSpeed / counts['speed'].length;
-    int sumLength = counts['length'].reduce((a, b) => a + b);
-    double avgLength = sumLength / counts['length'].length;
+  input.forEach((String length, List<int> speeds) {
+    int sumSpeed = speeds.reduce((a, b) => a + b);
+    double avgSpeed = sumSpeed / speeds.length;
     result.add({
-      'direction': direction,
+      'length': length,
       'sumSpeed': sumSpeed,
-      'sumLength': sumLength,
       'avgSpeed': avgSpeed,
-      'avgLength': avgLength
     });
   });
 

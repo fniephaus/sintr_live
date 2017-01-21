@@ -16,15 +16,10 @@ Future<String> sintrEntryPoint(String msg) async {
   msg.split('\n').forEach((String line) {
     List<String> parts = line.split(';');
     if (parts.length == 5) {
-      String direction = 'right';
-      if (parts[4][0] == "1") {
-        direction = 'left';
-      }
+      int speed = int.parse(parts[2]);
+      String length = int.parse(parts[3]).toString();
       kvs.add({
-        direction: {
-          'speed': int.parse(parts[2]),
-          'length': int.parse(parts[3])
-        }
+        length: speed
       });
     }
   });
