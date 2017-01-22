@@ -271,8 +271,15 @@ _handlePost(io.HttpRequest request) async {
       if (sources == null) throw "sources missing";
       if (input == null) throw "input missing";
 
+      int start = new DateTime.now().millisecondsSinceEpoch;
+      print('/localExec start: $start');
+
       String response = await _localExecuteMap(input, sources);
       request.response.write(response);
+
+      int end = new DateTime.now().millisecondsSinceEpoch;
+      print('/localExec end: $end (diff ${end-start}ms)');
+
       break;
 
     case "/localReducer":
@@ -281,8 +288,15 @@ _handlePost(io.HttpRequest request) async {
       if (sources == null) throw "sources missing";
       if (input == null) throw "input missing";
 
+      int start = new DateTime.now().millisecondsSinceEpoch;
+      print('/localReducer start: $start');
+
       String response = await _localExecuteReducer(input, sources);
       request.response.write(response);
+
+      int end = new DateTime.now().millisecondsSinceEpoch;
+      print('/localReducer end: $end (diff ${end-start}ms)');
+
       break;
 
     case "/serverExec":
