@@ -22,12 +22,17 @@ Future main(List<String> args, SendPort sendPort) async {
     var encodedResult;
 
     try {
+      int start = new DateTime.now().millisecondsSinceEpoch;
       var result = await _protectedHandle(msg);
+      int end = new DateTime.now().millisecondsSinceEpoch;
       encodedResult = JSON.encode(
         {
           'result' : result,
           'error' : null,
           'stacktrace' : null,
+          'start' : start,
+          'end' : end,
+          'time_to_run' : end - start,
         }
       );
     } catch (e, st) {
