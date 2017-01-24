@@ -1,5 +1,8 @@
 {
   "files" : [
     "t8.shakespeare.short"
+  ],
+  "cloud_files" : [
+    "t8.shakespeare.txt"
   ]
 }
