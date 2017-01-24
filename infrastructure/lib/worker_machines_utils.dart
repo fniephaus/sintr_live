@@ -3,9 +3,9 @@ import 'dart:async';
 import 'dart:convert';
 
 const ZONE_LIST = const [
-  "us-central1-a",
-  "us-east1-b",
-  "asia-east1-a",
+  //"us-central1-a",
+  //"us-east1-b",
+  //"asia-east1-a",
   "europe-west1-b"
 ];
 
