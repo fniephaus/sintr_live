@@ -30,7 +30,7 @@ main(List<String> args) async {
             "${config.userHomePath}/Communications/CryptoTokens");
 
   var client = await getAuthedClient();
-  var datastore = new datastore_impl.DatastoreImpl(client, 's~$projectId');
+  var datastore = new datastore_impl.DatastoreImpl(client, '$projectId');
   var datastoreDB = new db.DatastoreDB(datastore);
   // var cloudstore = new storage.Storage(client, projectId);
 

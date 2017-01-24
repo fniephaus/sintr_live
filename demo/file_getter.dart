@@ -36,7 +36,7 @@ Future<String> download(String bucketName, String path) async {
 
   var client = await auth.getAuthedClient();
   var dbService = new db.DatastoreDB(
-      new datastore_impl.DatastoreImpl(client, "s~$projectId"));
+      new datastore_impl.DatastoreImpl(client, "$projectId"));
   var sourceStorage = new storage.Storage(client, projectId);
 
   await ss.fork(() async {

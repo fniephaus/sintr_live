@@ -79,7 +79,7 @@ main(List<String> args) async {
 
   var client = await auth.getAuthedClient();
   var dbService = new db.DatastoreDB(
-      new datastore_impl.DatastoreImpl(client, "s~$projectId"));
+      new datastore_impl.DatastoreImpl(client, "$projectId"));
   var sourceStorage = new storage.Storage(client, projectId);
 
   ss.fork(() async {

@@ -33,7 +33,7 @@ main(List<String> args) async {
   tasks.TaskController taskController =
       new tasks.TaskController("example_task");
 
-  var datastore = new datastore_impl.DatastoreImpl(client, 's~$projectId');
+  var datastore = new datastore_impl.DatastoreImpl(client, '$projectId');
   var datastoreDB = new db.DatastoreDB(datastore);
 
   log.info("Setup done");

@@ -40,7 +40,7 @@ Future<List<String>> getNodes(String projectID, String zone) async {
     await Process.run("gcloud",
       ['compute', 'instances', 'list',
       '--format', 'json',
-      '--zone', zone,
+      '--zones', zone,
       '--project', projectID]);
 
   var resultString = results.stdout;
