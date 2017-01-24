@@ -10,8 +10,8 @@
 # The Sintr Front End Server running on port 8989
 
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage start_sintr.sh gce_project_id"
+if [ "$#" -ne 2 ]; then
+    echo "Usage start_sintr.sh gce_project_id projectPath"
     exit 1
 fi
 
@@ -22,4 +22,4 @@ cd ..
 mkdir -p ~/sintr-logs
 
 # Front End Server
-./infrastructure/scripts/start_fe_server.sh $1 # &> ~/sintr-logs/fe_server.log &
+./infrastructure/scripts/start_fe_server.sh $1 $2 # &> ~/sintr-logs/fe_server.log &
