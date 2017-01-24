@@ -16,7 +16,7 @@ if [ "$#" -ne 2 ]; then
 fi
 
 cd ui
-pub serve &> ~/sintr-logs/ui-pub-serve.log &
+pub serve --hostname 0.0.0.0 &> ~/sintr-logs/ui-pub-serve.log &
 cd ..
 
 mkdir -p ~/sintr-logs
