@@ -36,7 +36,7 @@ do
     --boot-disk-device-name $WORKER_NAME &
 done
 wait  # Join on start
-sleep 5
+sleep 60
 
 echo "Nodes ready, initting"
 
