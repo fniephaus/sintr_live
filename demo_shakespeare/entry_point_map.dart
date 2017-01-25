@@ -8,8 +8,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'file_getter.dart' as cloud_files;
 
 Future<String> sintrEntryPoint(String msg) async {
+  if (msg.startsWith("t8.shake")) {
+    cloud_files.setup();
+    // It's a file, download and open it
+    var path = await cloud_files.download("fniephaus-sintr-sintr-data-source", msg.trim());
+    msg = new File(path).readAsStringSync();
+  }
+  
   String text = msg;
 
   List<String> words = text.split(new RegExp(r"(\s+)"));
