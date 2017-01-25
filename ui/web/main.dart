@@ -312,8 +312,8 @@ _localReducer({Map<String, String> sources: null, List<Map> data : null}) async 
       var lst = JSON.decode(JSON.decode(result)["result"]);
       dataSeenSoFar.addAll(lst);
       step++;
-      // if (step % updateUIStep == 0 || step == keyToValueList.length) {
-      if (step == keyToValueList.length) {
+      if (step % updateUIStep == 0 || step == keyToValueList.length) {
+      // if (step == keyToValueList.length) {
         logResponseInOutputPanelList(dataSeenSoFar, 'reducer-output');
       }
     });
