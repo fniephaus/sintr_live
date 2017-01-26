@@ -11,6 +11,7 @@ _handleAutoCompletion(Editor editor, KeyboardEvent e) {
   if (editor.hasFocus) {
     if (e.keyCode == KeyCode.PERIOD) {
       print (e.keyCode);
+      printForBenchmark('dartServices.complete');
       editor.showCompletions(autoInvoked: true);
     }
   }
@@ -30,6 +31,7 @@ Future<bool> _performAnalysis(Editor editor) {
 
   Lines lines = new Lines(input.source);
 
+  printForBenchmark('dartServices.analyze');
   Future request = dartServices.analyze(input).timeout(serviceCallTimeout);
   _analysisRequest = request;
 
