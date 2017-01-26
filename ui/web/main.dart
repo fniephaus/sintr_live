@@ -305,15 +305,12 @@ _localReducer({Map<String, String> sources: null, List<Map> data : null}) async 
     printForBenchmark('localReducer request start');
     httpRequest.open("POST", url);
     httpRequest.onLoad.listen((_) {
-      printForBenchmark('localReducer request done');
       if (thisJobIndex != activeReducerJob) {
         // The user has activated another reduce job, cancel this one.
         print('Cancelling reducer $thisJobIndex');
         return;
       }
-      var result = JSON.decode(httpRequest.responseText);
-      printForBenchmark('Time to run on server: ' + result["time_to_run"].toString());
-      var lst = JSON.decode(result["result"]);
+      var lst = JSON.decode(JSON.decode(httpRequest.responseText)["result"]);
       dataSeenSoFar.addAll(lst);
       step++;
       if (step % updateUIStep == 0 || step == keyToValueList.length) {
@@ -347,8 +344,6 @@ _localAll() {
     httpRequest
       ..open("POST", url)
       ..onLoad.listen((_) {
-        printForBenchmark('localExec request done');
-        printForBenchmark('Time to run on server: ' + JSON.decode(httpRequest.response)["time_to_run"].toString());
         logResponseInOutputPanel(httpRequest, 'map-output-reducer-input');
 
         // Run the reducer with the same sources as the mapper.
