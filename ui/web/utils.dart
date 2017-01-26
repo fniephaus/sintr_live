@@ -219,7 +219,7 @@ logResponseInOutputPanelList(List response, String panelId) {
       reducerOutputData = responseText;
       updateChartWithData(responseMap);
     }
-    print('logResponseInOutputPanelList end (#' + panelId + ') at ' + new DateTime.now().millisecondsSinceEpoch.toString());
+    printForBenchmark('logResponseInOutputPanelList end (#' + panelId + ')');
 }
 
 /// [LifecycleState] tracks a task through its lifetime
@@ -276,7 +276,9 @@ Editor createNewEditor(DivElement editorContainer) {
   editor.mode = 'dart';
   editorFactory.registerCompleter('dart', new DartCompleter(dartServices, editor.document));
   editorContainer.onKeyUp.listen((e) {
+    printForBenchmark('_handleAutoCompletion start');
     _handleAutoCompletion(editor, e);
+    printForBenchmark('_handleAutoCompletion end');
   });
 
   // Listener for static analysis & auto-run
@@ -287,28 +289,32 @@ Editor createNewEditor(DivElement editorContainer) {
   int analysisDelayMilliseconds = 500;
   int autoRunDelayMilliseconds = 150;
   editor.document.onChange.listen((_) {
-    print('editor.document.onChange at ' + new DateTime.now().millisecondsSinceEpoch.toString());
+    printForBenchmark('editor.document.onChange');
     if (analysisTimer != null) analysisTimer.cancel();
     if (autoRunTimer != null) autoRunTimer.cancel();
     analysisTimer = new Timer(new Duration(milliseconds: analysisDelayMilliseconds), () {
-      print('_performAnalysis start at ' + new DateTime.now().millisecondsSinceEpoch.toString());
+      printForBenchmark('_performAnalysis start');
       Future analysis = _performAnalysis(editor);
       analysis.then((bool codeIsClean) {
-        print('_performAnalysis done at ' + new DateTime.now().millisecondsSinceEpoch.toString());
+        printForBenchmark('_performAnalysis done');
         if (!autoRun) { // Only autorun when it's enabled by the user.
           return;
         }
         if (codeIsClean) {
           autoRunTimer = new Timer(new Duration(milliseconds: autoRunDelayMilliseconds), () {
-            print('_localAll start at ' + new DateTime.now().millisecondsSinceEpoch.toString());
+            printForBenchmark('_localAll start');
             _localAll();
-            print('_localAll done at ' + new DateTime.now().millisecondsSinceEpoch.toString());
+            printForBenchmark('_localAll done');
           });
         }
       });
     });
   });
   return editor;
+}
+
+void printForBenchmark(String text) {
+  print(new DateTime.now().millisecondsSinceEpoch.toString() + ' -> ' + text);
 }
 
 // TODO(mariana): consider removing all other code files from the UI (if any present) when this is called.
