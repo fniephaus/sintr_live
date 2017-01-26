@@ -277,9 +277,7 @@ Editor createNewEditor(DivElement editorContainer) {
   editor.mode = 'dart';
   editorFactory.registerCompleter('dart', new DartCompleter(dartServices, editor.document));
   editorContainer.onKeyUp.listen((e) {
-    printForBenchmark('_handleAutoCompletion start');
     _handleAutoCompletion(editor, e);
-    printForBenchmark('_handleAutoCompletion end');
   });
 
   // Listener for static analysis & auto-run

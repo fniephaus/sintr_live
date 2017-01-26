@@ -58,6 +58,7 @@ class DartCompleter extends CodeCompleter {
         replaceOffset: offset, replaceLength: 0));
       });
     } else {
+      printForBenchmark('Completion request');
       servicesApi.complete(request).then((CompleteResponse response) {
         if (completer.isCancelled) return;
 
@@ -128,6 +129,7 @@ class DartCompleter extends CodeCompleter {
 
         completer.complete(new CompletionResult(filterCompletions,
         replaceOffset: replaceOffset, replaceLength: replaceLength));
+        printForBenchmark('Completion done');
       }).catchError((e) {
         completer.completeError(e);
       });
@@ -208,4 +210,8 @@ class AnalysisCompletion implements Comparable {
   String toString() => text;
 
   int _int(String val) => val == null ? 0 : int.parse(val);
+}
+
+void printForBenchmark(String text) {
+  print(new DateTime.now().millisecondsSinceEpoch.toString() + ' -> ' + text);
 }

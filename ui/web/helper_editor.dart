@@ -11,7 +11,6 @@ _handleAutoCompletion(Editor editor, KeyboardEvent e) {
   if (editor.hasFocus) {
     if (e.keyCode == KeyCode.PERIOD) {
       print (e.keyCode);
-      printForBenchmark('dartServices.complete');
       editor.showCompletions(autoInvoked: true);
     }
   }
