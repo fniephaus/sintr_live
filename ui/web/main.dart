@@ -268,8 +268,9 @@ _localExec() {
 // TODO: Clean this up, it's mangling assumptions with the previous layer about
 // the structure and naming of the files
 _localReducer({Map<String, String> sources: null, List<Map> data : null}) async {
-  print ("_localReducer");
-  print (data);
+  // print ("_localReducer");
+  // print (data);
+  printForBenchmark('_localReducer start');
 
   int thisJobIndex = ++reducerJobIndex;
   activeReducerJob = reducerJobIndex;
@@ -301,15 +302,18 @@ _localReducer({Map<String, String> sources: null, List<Map> data : null}) async 
 
     // k, values
     var httpRequest = new HttpRequest();
+    printForBenchmark('localReducer request start');
     httpRequest.open("POST", url);
     httpRequest.onLoad.listen((_) {
+      printForBenchmark('localReducer request done');
       if (thisJobIndex != activeReducerJob) {
         // The user has activated another reduce job, cancel this one.
         print('Cancelling reducer $thisJobIndex');
         return;
       }
-      String result = httpRequest.responseText;
-      var lst = JSON.decode(JSON.decode(result)["result"]);
+      var result = JSON.decode(httpRequest.responseText);
+      printForBenchmark('Time to run on server: ' + result["time_to_run"].toString());
+      var lst = JSON.decode(result["result"]);
       dataSeenSoFar.addAll(lst);
       step++;
       if (step % updateUIStep == 0 || step == keyToValueList.length) {
@@ -325,6 +329,7 @@ _localReducer({Map<String, String> sources: null, List<Map> data : null}) async 
     // at the same time.
     await new Future.delayed(const Duration(milliseconds: 10));
   }
+  printForBenchmark('_localReducer done');
 }
 
 _localAll() {
@@ -338,9 +343,12 @@ _localAll() {
       "input": mapperInputData,
     };
     var httpRequest = new HttpRequest();
+    printForBenchmark('localExec request start');
     httpRequest
       ..open("POST", url)
       ..onLoad.listen((_) {
+        printForBenchmark('localExec request done');
+        printForBenchmark('Time to run on server: ' + JSON.decode(httpRequest.response)["time_to_run"].toString());
         logResponseInOutputPanel(httpRequest, 'map-output-reducer-input');
 
         // Run the reducer with the same sources as the mapper.

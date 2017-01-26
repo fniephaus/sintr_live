@@ -203,6 +203,7 @@ logResponseInOutputPanelText(String responseText, String panelId) {
       reducerOutputData = responseText;
       updateChartWithData(response);
     }
+    printForBenchmark('logResponseInOutputPanelText end (#' + panelId + ')');
 }
 
 logResponseInOutputPanelList(List response, String panelId) {
