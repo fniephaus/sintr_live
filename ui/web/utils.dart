@@ -219,6 +219,7 @@ logResponseInOutputPanelList(List response, String panelId) {
       reducerOutputData = responseText;
       updateChartWithData(responseMap);
     }
+    print('logResponseInOutputPanelList end (#' + panelId + ') at ' + new DateTime.now().millisecondsSinceEpoch.toString());
 }
 
 /// [LifecycleState] tracks a task through its lifetime
@@ -286,17 +287,22 @@ Editor createNewEditor(DivElement editorContainer) {
   int analysisDelayMilliseconds = 500;
   int autoRunDelayMilliseconds = 150;
   editor.document.onChange.listen((_) {
+    print('editor.document.onChange at ' + new DateTime.now().millisecondsSinceEpoch.toString());
     if (analysisTimer != null) analysisTimer.cancel();
     if (autoRunTimer != null) autoRunTimer.cancel();
     analysisTimer = new Timer(new Duration(milliseconds: analysisDelayMilliseconds), () {
+      print('_performAnalysis start at ' + new DateTime.now().millisecondsSinceEpoch.toString());
       Future analysis = _performAnalysis(editor);
       analysis.then((bool codeIsClean) {
+        print('_performAnalysis done at ' + new DateTime.now().millisecondsSinceEpoch.toString());
         if (!autoRun) { // Only autorun when it's enabled by the user.
           return;
         }
         if (codeIsClean) {
           autoRunTimer = new Timer(new Duration(milliseconds: autoRunDelayMilliseconds), () {
+            print('_localAll start at ' + new DateTime.now().millisecondsSinceEpoch.toString());
             _localAll();
+            print('_localAll done at ' + new DateTime.now().millisecondsSinceEpoch.toString());
           });
         }
       });
